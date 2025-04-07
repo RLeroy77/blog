@@ -1,0 +1,70 @@
+<app-navbar/>
+
+<div class="container py-5">
+  <h2 class="text-primary fw-bold mb-4 d-flex align-items-center">
+    <i class="bi bi-pencil-square me-2"></i> Créer un Post
+  </h2>
+
+  <div class="card shadow-lg p-4 bg-white rounded-4 border border-light">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+      <div class="mb-3">
+        <label class="form-label fw-bold text-primary">Titre</label>
+        <input type="text"
+               class="form-control border border-secondary"
+               formControlName="title"
+               [ngClass]="{'is-invalid' : title.invalid && (title.dirty || submit)}">
+        @if (title.errors && (title.dirty || submit)) {
+          @if (title.errors['required']) {
+            <div class="invalid-feedback">
+              <p class="text-danger">Champ requis</p>
+            </div>
+          }
+        }
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label fw-bold text-primary">Contenu</label>
+        <textarea class="form-control border border-secondary"
+                  rows="4"
+                  formControlName="body"
+                  [ngClass]="{'is-invalid' : body.invalid && (body.dirty || submit)}">
+        </textarea>
+        @if (body.errors && (body.dirty || submit)) {
+          @if (body.errors['required']) {
+            <div class="invalid-feedback">
+              <p class="text-danger">Champ requis</p>
+            </div>
+          }
+        }
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label fw-bold text-primary">Commentaire</label>
+        <textarea class="form-control border border-secondary"
+                  rows="3"
+                  formControlName="commentBody"
+                  [ngClass]="{'is-invalid' : commentBody.invalid && (commentBody.dirty || submit)}">
+        </textarea>
+        @if (commentBody.errors && (commentBody.dirty || submit)) {
+          @if (commentBody.errors['required']) {
+            <div class="invalid-feedback">
+              <p class="text-danger">Champ requis</p>
+            </div>
+          }
+        }
+      </div>
+
+      <button class="btn btn-warning text-white fw-bold mt-4 w-100" type="submit">
+        Publier <i class="bi bi-upload ms-2"></i>
+      </button>
+    </form>
+  </div>
+
+  @if (responseMessage) {
+    <div class="alert alert-success mt-4">
+      <i class="bi bi-check-circle me-2"></i> {{ responseMessage }}
+    </div>
+  }
+</div>
+
